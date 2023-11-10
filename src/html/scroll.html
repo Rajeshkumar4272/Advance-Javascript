@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll by top</title>
+    <link rel="stylesheet" href="../../dist/output.css">
+</head>
+
+<body class="">
+    <header class="flex items-center justify-center text-3xl font-bold border ">Welcome </header>
+    <section class="w-full h-screen flex relative ">
+        <div class="w-1/2 h-full  flex justify-center items-center">
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus alias, earum ipsam voluptates tenetur
+                sunt! Exercitationem numquam quidem doloremque blanditiis vel voluptatum eius minus excepturi dolor
+                deserunt accusantium molestias aliquam tempore porro, nesciunt deleniti fuga officia in voluptatibus
+                voluptate! Placeat sapiente dicta aliquam officiis veniam?</p>
+        </div>
+        <div class="w-1/2 h-screen p-2">
+            <img src="https://images.unsplash.com/photo-1500817487388-039e623edc21?q=80&w=1378&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="img" class="w-full h-full object-cover rounded-md">
+        </div>
+    </section>
+    <section class="w-full h-screen flex ">
+        <div class="w-1/2 h-screen p-2">
+            <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="img" class="w-full h-full object-cover rounded-md">
+        </div>
+        <div class="w-1/2 h-full  flex justify-center items-center">
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus alias, earum ipsam voluptates tenetur
+                sunt! Exercitationem numquam quidem doloremque blanditiis vel voluptatum eius minus excepturi dolor
+                deserunt accusantium molestias aliquam tempore porro, nesciunt deleniti fuga officia in voluptatibus
+                voluptate! Placeat sapiente dicta aliquam officiis veniam?</p>
+        </div>
+    </section>
+    <section class="w-full h-screen flex  ">
+        <div class="w-1/2 h-full  flex justify-center items-center">
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus alias, earum ipsam voluptates tenetur
+                sunt! Exercitationem numquam quidem doloremque blanditiis vel voluptatum eius minus excepturi dolor
+                deserunt accusantium molestias aliquam tempore porro, nesciunt deleniti fuga officia in voluptatibus
+                voluptate! Placeat sapiente dicta aliquam officiis veniam?</p>
+        </div>
+        <div class="w-1/2 h-screen p-2">
+            <img src="https://images.unsplash.com/photo-1609873963505-a5061290ec5c?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="img" class="w-full h-full object-cover rounded-md">
+        </div>
+    </section>
+   
+    <div class="invisible" id="scrollBtnDiv">
+        <button type="button"
+            class="  bg-blue-600 w-10 h-10 rounded-full flex justify-center items-center p-2 fixed  bottom-0 right-10 ">
+            <svg class="w-6 h-6 text-white" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. -->
+                <path
+                    d="M318 177.5c3.8-8.8 2-19-4.6-26l-136-144C172.9 2.7 166.6 0 160 0s-12.9 2.7-17.4 7.5l-136 144c-6.6 7-8.4 17.2-4.6 26S14.4 192 24 192H96l0 288c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32l0-288h72c9.6 0 18.2-5.7 22-14.5z">
+                </path>
+            </svg>
+        </button>
+    </div>
+    <script>
+
+        (function () {
+            document.querySelector("#scrollBtnDiv").addEventListener("click", () => {
+                window.scrollTo(pageYOffset, 0);
+                // window.preventDefault()
+            });
+
+            document.addEventListener('scroll', function () {
+                console.log(window.innerHeight);
+                if(window.pageYOffset < innerHeight /7){   
+                    document.querySelector("#scrollBtnDiv").classList.add("invisible")
+                    
+                }
+                if(window.pageYOffset > innerHeight /7){   
+                    document.querySelector("#scrollBtnDiv").classList.remove("invisible")
+                }
+                
+
+            })
+        })()
+
+    </script>
+
+</body>
+
+</html>

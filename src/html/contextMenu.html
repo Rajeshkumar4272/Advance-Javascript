@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Context Menu</title>
+    <link rel="stylesheet" href="../../dist/output.css">
+</head>
+
+<body class="relative">
+    <div id="contextMenu" class="absolute ">
+        <ul class=" rounded-md w-96 divide-y divide-gray-100 shadow-xl " >
+            <li class="py-2 px-4   text-xl">Back</li>
+            <li class="py-2 px-4   text-xl">Forward</li>
+            <li class="py-2 px-4   text-xl">Reload</li>
+            <li class="py-2 px-4   text-xl">Save As</li>
+        </ul>
+
+    </div>
+
+    <script>
+        (function () {
+            const contextMenu = document.querySelector("#contextMenu")
+            document.addEventListener("contextmenu", e => {
+                e.preventDefault()
+                let x = e.offsetX
+                let y = e.offsetY
+                // inner height and width
+                let inHeight = window.innerHeight
+                let inWidth = window.innerWidth
+                // contextMenu  height and width
+                let cmWidth = contextMenu.offsetWidth
+                let cmheight = contextMenu.offsetHeight
+
+                if (x > inWidth - cmWidth) {
+                    x = inWidth - cmWidth;
+                } else {
+                    x = x;
+                }
+
+                if (y > inHeight - cmheight) {
+                    y = inHeight - cmheight;
+                } else {
+                    y = y;
+                }
+
+                contextMenu.style.left = `${x}px`
+                contextMenu.style.top = `${y}px`
+                contextMenu.style.visibility = "visible"
+            })
+            document.addEventListener("click" ,() => contextMenu.style.visibility = "hidden"
+             )
+        })()
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alert</title>
+    <link rel="stylesheet" href="../../dist/output.css">
+</head>
+
+<body class="bg-slate-50">
+    <button type="button" id="alertButton" class="flex items-center justify-center py-2 px-4 text-base font-medium rounded-lg text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 ml-5 mt-5">
+        Click me
+      </button>
+<script>
+        (function(){
+            
+            document.querySelector("#alertButton").addEventListener("click", () => {
+            let newDiv = document.createElement("div")
+            newDiv.setAttribute("class", " animate-pulse w-36 h-10 border bg-lime-400 text-white flex justify-center items-center mt-5 ml-5 rounded-md ")
+            let para = document.createElement("p")
+            para.innerHTML = "Hello"
+            setTimeout(() => {
+                newDiv.remove(newDiv)
+            }, 5000);
+            newDiv.appendChild(para)
+            document.body.appendChild(newDiv)
+        })
+        })()
+
+
+    </script>
+</body>
+
+</html>

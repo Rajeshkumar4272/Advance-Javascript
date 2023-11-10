@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>customeDropDown</title>
+    <link rel="stylesheet" href="../../dist/output.css">
+</head>
+
+<body class="relative">
+    <header class=" w-full py-1  px-20 bg-blue-300">
+        <nav class="flex  gap-20 items-center 	">
+            <div class="w-28 h-16 ">
+                <img src="https://imgs.search.brave.com/19pqI5y6UUAYs-fg7qDast6otDfMAaHu-lG6lmRZ6jc/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93d3cu/bG9nb2Rlc2lnbi5u/ZXQvbG9nby9zcGFy/dGFuLWhvbGRpbmct/YmFzZWJhbGwtYmF0/LTMxODZsZC5wbmc_/c2l6ZT0yJmluZHVz/dHJ5PWdhbWluZw"
+                    alt="logo" class="w-full h-full object-cover">
+            </div>
+            <ul class="flex  gap-10 ">
+                <li><a href="#">Home</a></li>
+                <li class="relative"> <button type="button" id="productList">Products</button>
+                    <div id="newDiv" class="w-36  p-1 absolute top-12 hidden -left-8">
+                        <ul
+                            class="flex flex-col items-center rounded-lg shadow-md py-4 px-6 bg-gradient-to-r from-indigo-500 to-purple-500">
+                            <li class="mb-2 text-white font-bold">item 1</li>
+                            <li class="text-white font-bold">item 2</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <script>
+        (function () {
+
+            let flag = 1
+            document.querySelector("#productList").addEventListener("click", () => {
+                if (flag == 1) {
+                    document.querySelector("#newDiv").style.display = 'block'
+                    flag = 0
+                }
+                else {
+                    document.querySelector("#newDiv").style.display = 'none'
+                    flag = 1
+                }
+            });
+        })()
+    </script>
+
+</body>
+
+</html>
