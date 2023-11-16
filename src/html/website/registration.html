@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration page</title>
+    <link rel="stylesheet" href="../../../dist/output.css">
+</head>
+
+<body>
+    <section class="px-20 py-10 min-w-full  bg-slate-50">
+        <div class=" flex  border-black border rounded-lg min-w-5xl bg-white  m-auto">
+            <div class="flex-1 p-10 space-y-2  ">
+                <div class="w-16 h-16">
+                    <img src="../gaming-logo-49563.png" alt="img1" class="w-full h-full object-cover">
+                </div>
+                <form action="#" class=" space-y-2" id="myForm">
+                    <h1 class="text-4xl font-semibold">Create your account</h1>
+                    <p class="text-sm text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt
+                        soluta ratione ut fugiat</p>
+                    <div class="flex">
+                        <label for="firstName">
+                            FirstName
+                            <input type="text" id="firstName" class="rounded-md  border p-3" name="FirstName"
+                                maxlength="20" minlength="8">
+                            <p class="text-red-600 text-sm hidden" id="firstNameErrormsg">please enter FirstName</p>
+                        </label>
+                        <label for="lastName">
+                            LastName
+                            <input type="text" id="lastName" class="rounded-md border p-3 w-full" name="LastName"
+                                maxlength="20" minlength="8">
+                            <p class="text-red-600 text-sm hidden" id="lastNameErrorMsg">please enter LastName</p>
+                        </label>
+                    </div>
+                    <div class="flex flex-col gap-y-6">
+                        <label for="gmail" class="">
+                            Gmail Address
+                            <input type="email" id="gmail" class="rounded-md  border p-3 w-full" name="Gmail">
+                            <p class="text-red-600 text-sm hidden" id="gmailErrorMsg">please Enter Gmail</p>
+                        </label>
+                        <label for="selectOption">
+                            <h2>Gender</h2>
+                            <select name="selectOption" id="selectOption" class="border-black border p-1  w-full">
+                                <option value="Default">Default</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Transgender">Transgender</option>
+                            </select>
+                            <p class="text-red-600 text-sm hidden" id="genderErrorMsg">please Select Gender</p>
+                        </label>
+                        <div class="flex  gap-4 items-center">
+                            <h2> Are you 18+ </h2>
+                            <label for="yes">
+                                <input type="radio" name="age" id="yes">
+                                Yes
+                            </label>
+                            <label for="no">
+                                <input type="radio" name="age" id="no">
+                                No
+                            </label>
+                            <p class="text-red-600 text-sm hidden " id="ageError"> please select </p>
+                        </div>
+                        <label for="Password">
+                            Password
+                            <input type="password" id="Password" class="rounded-md border p-3 w-full" name="Password">
+                            <p class="text-red-600 text-sm hidden " id="passwordErrorMsg"> please enter password </p>
+                        </label>
+                        <label for="ConfirmPassword">
+                            Confirm Password
+                            <input type="password" id="ConfirmPassword" class="rounded-md border p-3 w-full"
+                                name="Confirm_Password">
+                            <p class="text-red-600 text-sm hidden " id="confirmPasswordErrorMsg"> please enter same
+                                password as
+                                above </p>
+                        </label>
+                        <div class="flex justify-between w-full">
+                            <a href="#">Already have an account? <span class="font-bold">Sign in</span> </a>
+                            <button type="submit" class="px-2 py-1 rounded text-white bg-orange-400" id="submitBtn">
+                                Create
+                                Account</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="flex-1 w-full p-10">
+                <img src="registration_img.jpg" alt="img" class=" w-full h-full object-cover rounded">
+            </div>
+        </div>
+    </section>
+    <script>
+        (function () {
+            const form = document.getElementById('myForm');
+            // errormsg
+            let firstNameErrorMsg = document.getElementById('firstName')
+            firstNameErrorMsg.addEventListener('input', () => {
+                if (firstNameErrorMsg.value.trim() == '') {
+                    document.querySelector("#firstNameErrormsg").classList.remove("hidden")
+                }
+                else {
+                    document.querySelector("#firstNameErrormsg").classList.add("hidden")
+                }
+            })
+
+            let lastNameErrorMsg = document.getElementById('lastName')
+            lastNameErrorMsg.addEventListener("input", () => {
+                if (lastName.value.trim() == '') {
+                    document.querySelector("#lastNameErrorMsg").classList.remove("hidden")
+                }
+                else {
+                    document.querySelector("#lastNameErrorMsg").classList.add("hidden")
+                }
+            })
+
+            let gmailErrorMsg = document.getElementById('gmail')
+            gmailErrorMsg.addEventListener("input", () => {
+                if (gmailErrorMsg.value.trim() == '') {
+                    document.querySelector("#gmailErrorMsg").classList.remove("hidden")
+                }
+                else {
+                    document.querySelector("#gmailErrorMsg").classList.add("hidden")
+                }
+            })
+
+            // gender error msg
+            let genderErrorMsg = document.getElementById('selectOption')
+            genderErrorMsg.addEventListener("change", () => {
+                if (genderErrorMsg.value === 'Default') {
+                    document.querySelector("#genderErrorMsg").classList.remove("hidden")
+                }
+                else {
+                    document.querySelector("#genderErrorMsg").classList.add("hidden")
+                }
+            })
+            // radio button error msg
+            let ageErrorMsg = document.querySelectorAll("input[name = 'age']");
+            ageErrorMsg.forEach(element => {
+                element.addEventListener("change", (event) => {
+                    if (!event.target.checked) {
+                        document.querySelector("#ageError").classList.remove("hidden");
+                    } else {
+                        document.querySelector("#ageError").classList.add("hidden");
+                    }
+                });
+            });
+
+
+            // password error msg
+            let passwordErrorMsg = document.querySelector("#Password")
+            passwordErrorMsg.addEventListener("input", () => {
+                if (passwordErrorMsg == "") {
+                    document.querySelector("#passwordErrorMsg").classList.remove("hidden");
+                }
+                else {
+                    document.querySelector("#passwordErrorMsg").classList.add("hidden");
+                }
+            })
+            let confirmPasswordErrorMsg = document.querySelector("#ConfirmPassword")
+            confirmPasswordErrorMsg.addEventListener("input", () => {
+                if (confirmPasswordErrorMsg == "") {
+                    document.querySelector("#confirmPasswordErrorMsg").classList.remove("hidden");
+                }
+                else {
+                    document.querySelector("#confirmPasswordErrorMsg").classList.add("hidden");
+                }
+            })
+
+
+            // let submitBtn = document.querySelector("#form")
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+
+                const passwordInput = document.getElementById('Password');
+                const confirmPasswordInput = document.getElementById('ConfirmPassword');
+                const password = passwordInput.value.trim();
+                const confirmPassword = confirmPasswordInput.value.trim();
+
+                if (password !== confirmPassword) {
+                        alert('Passwords do not match. Please enter the same password in both fields.');
+                        passwordInput.value = ''; // Clear password fields
+                        confirmPasswordInput.value = '';
+                        return;
+                    }
+                if (firstNameErrorMsg.value.length && lastNameErrorMsg.value.length && gmailErrorMsg.value.length && passwordInput.value.length && confirmPasswordInput.value.length > 0) {
+                    alert("Form submitted successfully!")
+                    passwordInput.value = '';
+                    confirmPasswordInput.value = '';
+
+
+                   
+                    document.getElementById('firstName').value = '';
+                    document.getElementById('lastName').value = '';
+                    document.getElementById('gmail').value = '';
+                    document.getElementById('selectOption').value = 'Default';
+                    document.querySelectorAll('input[name = "age"].checked').checked = '';
+                }
+                else {
+                    document.getElementById('firstNameErrormsg').classList.remove("hidden")
+                    document.getElementById('lastNameErrorMsg').classList.remove("hidden")
+                    document.getElementById('gmailErrorMsg').classList.remove('hidden')
+                    document.getElementById('genderErrorMsg').classList.remove("hidden")
+                    document.getElementById('passwordErrorMsg').classList.remove("hidden")
+                    document.getElementById('confirmPasswordErrorMsg').classList.remove("hidden")
+                    document.getElementById('ageError').classList.remove("hidden")
+
+                }
+            });
+        })()
+
+    </script>
+
+
+
+    </script>
+
+</body>
+
+</html>
