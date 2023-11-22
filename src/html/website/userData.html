@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Data Table</title>
+    <link rel="stylesheet" href="../../../dist/output.css">
+</head>
+
+<body>
+    <table id="myTable">
+        <thead>
+            <tr class="w-full">
+                <th class="p-2 bg-lime-400 text-white">FirstName </th>
+                <th class="p-2 bg-lime-400 text-white">LastName </th>
+                <th class="p-2 bg-lime-400 text-white">Email </th>
+                <th class="p-2 bg-lime-400 text-white">Gender </th>
+                <th class="p-2 bg-lime-400 text-white">Above 18+ </th>
+                <th class="p-2 bg-lime-400 text-white">Password </th>
+                <th class="p-2 bg-lime-400 text-white">Image </th>
+                <th class="p-2 bg-lime-400 text-white">Blood Group</th>
+                <th class="p-2 bg-lime-400 text-white">Current Address</th>
+                <th class="p-2 bg-lime-400 text-white">Parmanent Address</th>
+                <th class="p-2 bg-lime-400 text-white">Date Of Birth</th>
+                <th class="p-2 bg-lime-400 text-white">Action</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody" class="bg-slate-50">
+
+        </tbody>
+    </table>
+    <script>
+        (function () {
+            let tableData = {
+                getlocalData: function () {
+                    return JSON.parse(localStorage.getItem("notes")) || []
+                },
+                updateLocalData: function (data) {
+                    let storeData = this.getlocalData()
+                    storeData.push(data);
+                    localStorage.setItem("notes", JSON.stringify(storeData))
+                },
+                // display localStorage in html 
+                displayTable: function () {
+                    let data = this.getlocalData();
+                    for (let i = 0; i < data.length; i++) {
+                        console.log(data[i])
+                        let td = document.createElement('td')
+                        let tr = document.createElement('tr');
+                        td.textContent = data[i].FirstName;
+                        tr.appendChild(td)
+                        td = document.createElement('td')
+                        td.textContent = data[i].LastName;
+                        tr.appendChild(td)
+                        td = document.createElement('td')
+                        td.textContent = data[i].Gmail;
+                        tr.appendChild(td)
+                        td = document.createElement('td')
+                        td.textContent = data[i].selectOption;
+                        tr.appendChild(td)
+                        td = document.createElement('td')
+                        td.innerHTML = `<button onclick='edit(${i})' class =" border-black border p-2 " >Edit</button>`
+                        tr.appendChild(td)
+                        td = document.createElement('td')
+                        td.innerHTML = `<button  id="deleteBtn" class =" border-black border p-2 ">Delete</button>`
+                        tr.appendChild(td)
+                        document.getElementById('tableBody').appendChild(tr)
+                    }
+                },
+                deleteRow: function (index) {
+                    if (confirm(`Are you sure to remove ${this.getlocalData()[index].FirstName}?`)) {
+                        let data = this.getlocalData();
+                        data.splice(index, 1);
+                        localStorage.setItem("notes", JSON.stringify(data));
+                        location.reload();
+                    } else {
+                        alert('You have cancelled the operation!')
+                    }
+                },
+                editRow: function (index) {
+                    let data = this.getlocalData();
+                    let row = data[index];
+                    document.querySelector('#editModal #id').value = index;
+                    document.querySelector("#editModal #firstname").value = row.FirstName;
+                    document.querySelector("#editModal #lastname").value = row.LastName;
+                    document.querySelector("#editModal #gmail").value = row.Gmail;
+                }
+            }
+
+            tableData.displayTable()
+            document.querySelector('#deleteBtn').addEventListener('onclick', () => {
+                tableData.deleteRow(document.querySelector('#tablebody').value)
+
+            })
+            // document.querySelector('#updateBtn').addEventListener('onclick', () => {
+            //     let id = document.querySelector('#id').value;
+            //     let firstname = document.querySelector('#firstname').value;
+            //     let lastname = document.querySelector('#lastname').value;
+            //     let gmail = document.querySelector('#gmail').value;
+            //     let data = tableData.getlocalData();
+            //     data[id] = { FirstName: firstname, LastName: lastname, Gmail: gmail };
+            //     localStorage.setItem("notes", JSON.stringify(data));
+            //     location.reload();
+            // })
+        })()
+    </script>
+</body>
+
+</html>

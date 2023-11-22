@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="../../../dist/output.css">
+</head>
+
+<body class="p-1 bg-slate-50">
+    <h1 class=" text-center text-2xl bg-lime-300 text-white">Admin</h1>
+    <div class=" w-96 p-2">
+        <input type="text" placeholder="Search..." class="w-full p-2  rounded-md shadow-sm border-black border"
+            id="search">
+    </div>
+
+    <table class="border-black border w-full ">
+        <thead class="bg-white text-black">
+            <tr class="border-b-2 border-black ">
+                <th class=" py-3  font-semibold">ID</th>
+                <th class=" py-3  font-semibold">FirstName</th>
+                <th class=" py-3  font-semibold">LastName</th>
+                <th class=" py-3  font-semibold">Age</th>
+                <th class=" py-3  font-semibold">Gender</th>
+                <th class=" py-3  font-semibold">Email</th>
+                <th class=" py-3  font-semibold">Date Of Birth</th>
+                <th class=" py-3  font-semibold">Blood Group</th>
+                <th class=" py-3  font-semibold">Image</th>
+                <th class=" py-3  font-semibold">Phone number</th>
+                <th class=" py-3  font-semibold">Current Address</th>
+                <th class=" py-3  font-semibold">Permanent Address</th>
+                <th class=" py-3  font-semibold">Role</th>
+                <th class=" py-3  font-semibold ">Action</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody" class="bg-white text-black">
+        </tbody>
+    </table>
+    <div class="flex w-full justify-end mt-2">
+        <button type="button" class="bg-blue-500 text-white p-2 rounded-md" id="addUser">Add User</button>
+    </div>
+    <script>
+        (function () {
+
+            const tableData = {
+                getlocalData: function () {
+                    return JSON.parse(localStorage.getItem("notes")) || []
+                },
+                updateLocalData: function (data) {
+                    let storeData = this.getlocalData()
+                    storeData.push(data);
+                    localStorage.setItem("notes", JSON.stringify(storeData))
+                },
+                displayTable: function () {
+                    let data = this.getlocalData();
+                    console.log(data);
+                    for (let i = 0; i < data.length; i++) {
+
+                        let tr = document.createElement("tr");
+                        tr.setAttribute('class', 'border-black border ')
+                        tr.setAttribute('id', data[0].id)
+                        let td = document.createElement("td");
+                        // td.setAttribute('class', 'p-2')
+
+                        // Loop through each data point and populate a single td element
+                        for (const key in data[i]) {
+                            td.textContent = data[i][key];
+                            tr.appendChild(td);
+                            td = document.createElement("td"); // Create a new td for the next column
+                        }
+
+                        // Edit button with index as parameter
+                        // td.innerHTML = `<img src="${imageUrl}" alt="img">`;
+                        // td.setAttribute('class', 'w-10 h-10 rounded');
+                        // tr.appendChild(td);
+
+                        td.innerHTML = `<button id="edit(${i})" class="border-black border p-2">Edit</button>`;
+                        tr.appendChild(td);
+
+                        // Delete button with unique id based on index
+                        td = document.createElement("td");
+                        td.innerHTML = `<button id="deleteBtn${i}" class="border-black border p-2">Delete</button>`;
+                        tr.appendChild(td);
+
+                        document.getElementById("tableBody").appendChild(tr);
+
+                        document.getElementById(`edit(${i})`).addEventListener("click", function (e) {
+                            let userid = e.target.closest('tr').getAttribute('id')
+                            localStorage.setItem('changeUserId', JSON.stringify(userid))
+                            window.location.href = 'editForm.html';
+
+                        })
+
+
+                        document.getElementById(`deleteBtn${i}`).addEventListener("click", function () {
+                            const rowIndex = parseInt(this.id.split("deleteBtn")[1]);
+                            // Get local data
+                            let data = tableData.getlocalData();
+                            // Remove item from local storage
+                            data.splice(rowIndex, 1);
+                            // console.log(rowIndex);
+                            localStorage.setItem("notes", JSON.stringify(data));
+                            // Remove row from the table
+                            this.parentElement.parentElement.remove();
+                        });
+
+                        document.getElementById('addUser').addEventListener("click", function () {
+                            window.location.href = 'registrationForm.html';
+                        })
+
+                    }
+
+                },
+                searchFunction: function () {
+                    let search = document.getElementById('search').value.trim();
+                    let data = tableData.getlocalData();
+                    let filteredData = data.filter(function (item) {
+                        return Object.values(item).some((val) => { return val.toLowerCase().includes(search.toLowerCase()) })
+                        return item.firstName.toLowerCase().includes(search.toLowerCase())
+                    })
+                    tableData.setlocalData(filteredData);
+                    tableData.createTable();
+                },
+                Search: function () {
+                    let debounceTimer = null;
+                    return () => {
+                        clearTimeout(debounceTimer);
+                        debounceTimer = setTimeout(() => {
+                            this.searchFunction();
+                        }, 2000);
+
+                    }
+                },
+
+
+            }
+            tableData.displayTable()
+            tableData.Search()
+
+        })()
+
+    </script>
+</body>
+
+</html>

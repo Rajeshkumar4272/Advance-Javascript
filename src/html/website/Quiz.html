@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+    <link rel="stylesheet" href="../../../dist/output.css">
+</head>
+
+<body>
+    <div class="main w-full h-screen flex justify-center items-center bg-blue-600">
+        <!-- <form action="#" method="post"> -->
+        <div id="box" class=" p-4  w-96 shadow border bg-white rounded-md">
+            <h2 id="questionBox">This is my first question</h2>
+            <div class="row w-full p-1  ">
+                <input type="radio" name="options" id="option1" class="opt" value="a" onchange="colorChnage()">
+                <label for="option1"> option1 </label>
+            </div>
+            <div class="row w-full p-1 ">
+                <input type="radio" name="options" id="option2" class="opt" value="b" onchange="colorChnage()">
+                <label for="option2"> option2 </label>
+            </div>
+            <div class="row w-full p-1 ">
+                <input type="radio" name="options" id="option3" class="opt" value="c" onchange="colorChnage()">
+                <label for="option3"> option3 </label>
+            </div>
+            <div class="row w-full p-1 ">
+                <input type="radio" name="options" id="option4" class="opt" value="d" onchange="colorChnage()">
+                <label for="option4">option4 </label>
+            </div>
+            <button class="btn w-full p-2 border-black border  rounded-md " onclick="submitQuiz()" id="submitBtn"
+                type="button">
+                Next
+            </button>
+            <button type="button " id="skipButton"
+                class="w-full p-2 bg-blue-600 text-white rounded-md  mt-2">Skip</button>
+            <button type="button" id="previousButton"
+                class="w-full p-2 bg-blue-600 text-white border-none rounded-md  mt-2">previous</button>
+
+        </div>
+        <!-- </form> -->
+    </div>
+    <script>
+        const questions = [{
+            'que': 'what color you like ',
+            'a': 'Red',
+            'b': 'Blue',
+            'c': 'Yellow',
+            'd': 'Green',
+            'correct': 'a'
+        }, {
+            'que': 'Do you want to die ? ',
+            'a': 'yes',
+            'b': 'why not',
+            'c': 'option 1',
+            'd': 'both a and b ',
+            'correct': 'a'
+        }, {
+            'que': 'Favourite anime Genre ',
+            'a': 'Action',
+            'b': 'funny',
+            'c': 'Drama',
+            'd': 'Slice of Life ',
+            'correct': 'a'
+        }]
+        let index = 0;
+        let total = questions.length
+        let correct = 0
+        let right = 0,
+            wrong = 0;
+        const previousButton = document.getElementById('previousButton');
+        const skipButton = document.getElementById('skipButton');
+        const questionBox = document.querySelector('#questionBox');
+        const optionInput = document.querySelectorAll('.opt');
+        const submitBtn = document.querySelector('#submitBtn')
+
+
+        const loadQuestion = () => {
+            if (index === total) {
+                return endQuiz()
+            }
+            // reset()
+            const data = questions[index];
+            questionBox.innerHTML = `${index + 1}) ${data.que}`;
+            optionInput[0].nextElementSibling.innerText = data.a
+            optionInput[1].nextElementSibling.innerText = data.b;
+            optionInput[2].nextElementSibling.innerText = data.c;
+            optionInput[3].nextElementSibling.innerText = data.d;
+            submitBtn.classList.remove('bg-blue-600', 'text-white', 'font-semibold', 'border-none')
+
+        };
+
+        const colorChnage = () => {
+            submitBtn.classList.add('bg-blue-600', 'text-white', 'font-semibold', 'border-none')
+        }
+
+        const submitQuiz = () => {
+            const data = questions[index];
+            const answer = getAnswer()
+
+            if (!answer) {
+                if (index === total - 1) {
+                    endQuiz()
+                    return;
+                }
+                else {
+                    alert('hello')
+                }
+            }
+            else {
+                if (answer === data.correct) {
+                    right++
+                } else {
+                    wrong++
+                }
+                index++
+                loadQuestion()
+                if (index === total - 1) {
+                    submitBtn.innerHTML = 'Submit '
+                }
+                return
+
+            }
+        }
+        const getAnswer = () => {
+            let ans;
+            optionInput.forEach((input) => {
+                if (input.checked) {
+                    ans = input.value;
+                }
+            })
+            return ans;
+        }
+        const reset = () => {
+            optionInput.forEach(
+                (input) => {
+                    input.checked = false
+                }
+            )
+        }
+
+        const endQuiz = () => {
+            document.querySelector('#box').innerHTML = `<h3> Thank you for your time </h3>
+            <h2>${right}/${total} are correct</h2>`
+
+        }
+
+
+        previousButton.addEventListener('click', () => {
+            if (index > 0) {
+                index--;
+                loadQuestion();
+            }
+        });
+
+        skipButton.addEventListener('click', () => {
+            if (index < total - 1) {
+                index++;
+                loadQuestion();
+            } else {
+                // endQuiz();
+            }
+
+        });
+        skipButton.addEventListener('click', () => {
+            if (index == total - 1) {
+                submitBtn.innerHTML = 'Submit'
+                // submitBtn.setAttribute('type', 'submit')
+            }
+            else {
+                submitBtn.innerHTML = 'Next'
+                // submitBtn.setAttribute('type', 'button')
+            }
+        })
+        previousButton.addEventListener('click', () => {
+            if (index == total - 1) {
+                submitBtn.innerHTML = 'Submit'
+                // submitBtn.setAttribute('type', 'submit')
+            }
+            else {
+                submitBtn.innerHTML = 'Next'
+                // submitBtn.setAttribute('type', 'button')
+
+            }
+        })
+        loadQuestion();
+
+    </script>
+</body>
+
+</html>

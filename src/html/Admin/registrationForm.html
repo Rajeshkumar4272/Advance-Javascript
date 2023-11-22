@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RegistrationForm</title>
+    <link rel="stylesheet" href="../../../dist/output.css" />
+</head>
+
+<body>
+    <section class="py-10 px-20 flex justify-center items-center">
+        <div class="border-black border w-full">
+            <form class="p-4" id="myForm">
+                <div class="flex gap-6 w-full">
+                    <div class="flex flex-col mt-4 w-full">
+                        <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+                        <input type="text" name="firstName" id="firstName" placeholder="Enter FirstName"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+                    <div class="flex flex-col mt-4 w-full">
+                        <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+                        <input type="text" name="lastName" id="lastName" placeholder="Enter LastName"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="age">Age:</label>
+                    <input type="number" id="age" name="age"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        placeholder="Enter your age" />
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="gender">Gender:</label>
+                    <select id="gender" name="gender"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="">Select your gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email:</label>
+                    <input type="email" id="email" name="email"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        placeholder="Enter your email address" />
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="date_of_birth">Date of Birth:</label>
+                    <input type="date" id="date_of_birth" name="date_of_birth"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        placeholder="YYYY-MM-DD" />
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="blood_group">Blood Group:</label>
+                    <select id="blood_group" name="blood_group"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="">Select your blood group</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="image">Upload Image:</label>
+                    <input type="file" id="image" name="image"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="phone_number">Phone Number:</label>
+                    <input type="tel" id="phone_number" name="phone_number"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="current_address">Current
+                        Address:</label>
+                    <textarea id="current_address" name="current_address"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="permanent_address">Permanent
+                        Address:</label>
+                    <!-- <div class="flex items-center">
+                        <input type="checkbox" id="same_as_current" name="same_as_current" class="mr-2" />
+                        <label for="same_as_current" class="text-gray-700">Same as current address</label>
+                    </div> -->
+                    <textarea id="permanent_address" name="permanent_address"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Select your role:</label>
+                    <select id="role" name="role"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="">Please select...</option>
+                        <option value="admin">Admin</option>
+                        <option value="hr">HR</option>
+                        <option value="employee">Employee</option>
+                    </select>
+                </div>
+                <div class="flex justify-center">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+    <script>
+        (function () {
+            
+            const formObj = {
+                // form
+                form: document.getElementById("myForm"),
+                // form
+                firstName: document.getElementById("firstName"),
+                lastName: document.getElementById("lastName"),
+                age: document.getElementById("age"),
+                gender: document.getElementById("gender"),
+                email: document.getElementById("email"),
+                Date_of_birth: document.getElementById("date_of_birth"),
+                Blood_group: document.getElementById("blood_group"),
+                image: document.getElementById("image"),
+                phone: document.getElementById("phone"),
+                current_address: document.getElementById("current_address"),
+                permanent_address: document.getElementById("permanent_address"),
+                role: document.getElementById("role"),
+                
+                notesStorage: localStorage.getItem("notes") ? JSON.parse(localStorage.getItem("notes")) : [],
+                updateStorage: function () {
+                    localStorage.setItem("notes", JSON.stringify(this.notesStorage));
+                },
+                
+                // render: function () {
+                //     const sameAsCurrentCheckbox = document.getElementById("same_as_current");
+                //     sameAsCurrentCheckbox.addEventListener("change", (event) => {
+                //         if (event.target.checked) {
+                //            this. permanentAddress.value = this.currentAddress.value;
+                //         } else {
+                //           this. permanentAddress.value = "";
+                //         }
+                //     });
+                // },
+
+                bind: function () {
+                    this.form.addEventListener("submit", (event) => {
+                        event.preventDefault();
+
+                        const formlocalStorage = new FormData(this.form);
+                        let formDataStorage = {};
+                        formDataStorage.id = Date.now();
+                        formlocalStorage.forEach((value, key) => {
+                            formDataStorage[key] = value;
+                        });
+                        this.notesStorage.push(formDataStorage);
+                        this.updateStorage()
+                        window.location.href = 'Admin.html';
+                        document.getElementById('myForm').reset()
+                    });
+                },
+            };
+            // formObj.render();
+            formObj.bind();
+        })();
+    </script>
+</body>
+
+</html>
