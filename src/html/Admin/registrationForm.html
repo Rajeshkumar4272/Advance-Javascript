@@ -17,11 +17,13 @@
                         <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
                         <input type="text" name="firstName" id="firstName" placeholder="Enter FirstName"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                        <div id="firstNameError" class="text-red-600 opacity-0">Name should be alphabet </div>
                     </div>
                     <div class="flex flex-col mt-4 w-full">
                         <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
                         <input type="text" name="lastName" id="lastName" placeholder="Enter LastName"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                        <div id="lastNameError" class="text-red-600 opacity-0">Last should be alphabet</div>
                     </div>
                 </div>
 
@@ -30,6 +32,7 @@
                     <input type="number" id="age" name="age"
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         placeholder="Enter your age" />
+                    <div id="ageError" class="text-red-600 opacity-0">Age should be greater than 18 or equal</div>
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="gender">Gender:</label>
@@ -40,18 +43,21 @@
                         <option value="female">Female</option>
                         <option value="other">Other</option>
                     </select>
+                    <div id="genderError" class="text-red-600 opacity-0">Please select gender</div>
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email:</label>
                     <input type="email" id="email" name="email"
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         placeholder="Enter your email address" />
+                    <div id="emailError" class="text-red-600 opacity-0">Please enter valid email with @ and . </div>
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="date_of_birth">Date of Birth:</label>
                     <input type="date" id="date_of_birth" name="date_of_birth"
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         placeholder="YYYY-MM-DD" />
+                    <div id="date_of_birthError" class="text-red-600 opacity-0">please select Date of birth</div>
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="blood_group">Blood Group:</label>
@@ -67,17 +73,20 @@
                         <option value="O+">O+</option>
                         <option value="O-">O-</option>
                     </select>
+                    <div id="blood_groupError" class="text-red-600 opacity-0">please select blood group</div>
                 </div>
 
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="image">Upload Image:</label>
                     <input type="file" id="image" name="image"
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                    <div id="imageError" class="text-red-600 opacity-0">please choose image</div>
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="phone_number">Phone Number:</label>
                     <input type="tel" id="phone_number" name="phone_number"
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                    <div id="phone_numberError" class="text-red-600 opacity-0">please enter 10 digit number</div>
                 </div>
 
                 <div class="mb-4">
@@ -85,17 +94,21 @@
                         Address:</label>
                     <textarea id="current_address" name="current_address"
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                    <div id="current_addressError" class="text-red-600 opacity-0">please enter your current address
+                    </div>
                 </div>
 
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="permanent_address">Permanent
                         Address:</label>
-                    <!-- <div class="flex items-center">
-                        <input type="checkbox" id="same_as_current" name="same_as_current" class="mr-2" />
+                    <div class="flex items-center">
+                        <input type="checkbox" id="same_as_current" class="mr-2" />
                         <label for="same_as_current" class="text-gray-700">Same as current address</label>
-                    </div> -->
+                    </div>
                     <textarea id="permanent_address" name="permanent_address"
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                    <div id="permanent_addressError" class="text-red-600 opacity-0">please enter your permanent address
+                    </div>
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2">Select your role:</label>
@@ -106,6 +119,7 @@
                         <option value="hr">HR</option>
                         <option value="employee">Employee</option>
                     </select>
+                    <div id="roleError" class="text-red-600 opacity-0">please select your role</div>
                 </div>
                 <div class="flex justify-center">
                     <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -117,8 +131,8 @@
     </section>
     <script>
         (function () {
-            
-            const formObj = {
+
+            const user = {
                 // form
                 form: document.getElementById("myForm"),
                 // form
@@ -127,49 +141,187 @@
                 age: document.getElementById("age"),
                 gender: document.getElementById("gender"),
                 email: document.getElementById("email"),
-                Date_of_birth: document.getElementById("date_of_birth"),
-                Blood_group: document.getElementById("blood_group"),
+                date_of_birth: document.getElementById("date_of_birth"),
+                blood_group: document.getElementById("blood_group"),
                 image: document.getElementById("image"),
-                phone: document.getElementById("phone"),
+                phone: document.getElementById("phone_number"),
                 current_address: document.getElementById("current_address"),
+                checkBoxBtn: document.getElementById('same_as_current'),
                 permanent_address: document.getElementById("permanent_address"),
                 role: document.getElementById("role"),
-                
+
                 notesStorage: localStorage.getItem("notes") ? JSON.parse(localStorage.getItem("notes")) : [],
+
                 updateStorage: function () {
                     localStorage.setItem("notes", JSON.stringify(this.notesStorage));
                 },
-                
-                // render: function () {
-                //     const sameAsCurrentCheckbox = document.getElementById("same_as_current");
-                //     sameAsCurrentCheckbox.addEventListener("change", (event) => {
-                //         if (event.target.checked) {
-                //            this. permanentAddress.value = this.currentAddress.value;
-                //         } else {
-                //           this. permanentAddress.value = "";
-                //         }
-                //     });
-                // },
-
+                error: {
+                    firstNameError: document.getElementById("firstNameError"),
+                    lastNameError: document.getElementById("lastNameError"),
+                    ageError: document.getElementById("ageError"),
+                    genderError: document.getElementById("genderError"),
+                    emailError: document.getElementById("emailError"),
+                    date_of_birthError: document.getElementById("date_of_birthError"),
+                    blood_groupError: document.getElementById("blood_groupError"),
+                    imageError: document.getElementById("imageError"),
+                    phoneError: document.getElementById("phone_numberError"),
+                    current_addressError: document.getElementById("current_addressError"),
+                    permanent_addressError: document.getElementById("permanent_addressError"),
+                    roleError: document.getElementById("roleError"),
+                },
                 bind: function () {
+
+                    this.firstName.addEventListener('blur', () => {
+                        if (!/^[a-zA-Z]+$/.test(this.firstName.value)) {
+                            this.error.firstNameError.classList.remove('opacity-0')
+                        }
+                        else {
+                            this.error.firstNameError.classList.add('opacity-0')
+                        }
+                    })
+                    this.lastName.addEventListener('blur', () => {
+                        if (!/^[a-zA-Z]+$/.test(this.lastName.value)) {
+                            this.error.lastNameError.classList.remove('opacity-0')
+                        }
+                        else {
+                            this.error.lastNameError.classList.add('opacity-0')
+                        }
+                    })
+                    this.age.addEventListener('blur', () => {
+                        if (this.age.value.trim() <= 18) {
+                            this.error.ageError.classList.remove('opacity-0')
+                        }
+                        else {
+                            this.error.ageError.classList.add('opacity-0')
+                        }
+                    })
+                    this.gender.addEventListener('blur', () => {
+                        if (this.gender.value.trim() == '') {
+                            this.error.genderError.classList.remove('opacity-0')
+                        }
+                        else {
+                            this.error.genderError.classList.add('opacity-0')
+                        }
+                    })
+
+                    this.email.addEventListener('blur', () => {
+                        if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(this.email.value.trim())) {
+                            this.error.emailError.classList.remove('opacity-0')
+                        }
+                        else {
+                            this.error.emailError.classList.add('opacity-0')
+                        }
+                    })
+                    this.date_of_birth.addEventListener('blur', () => {
+                        if (this.date_of_birth.value.trim() == '') {
+                            this.error.date_of_birthError.classList.remove('opacity-0')
+                        }
+                        else {
+                            this.error.date_of_birthError.classList.add('opacity-0')
+                        }
+                    })
+                    this.blood_group.addEventListener('blur', () => {
+                        if (this.blood_group.value.trim() == '') {
+                            this.error.blood_groupError.classList.remove('opacity-0')
+                        }
+                        else {
+                            this.error.blood_groupError.classList.add('opacity-0')
+                        }
+                    })
+                    this.image.addEventListener('blue', () => {
+                        if (this.image.value.trim() == '') {
+                            this.error.imageError.classList.remove('opacity-0')
+                        }
+                        else {
+                            this.error.imageError.classList.add('opacity-0')
+                        }
+                    })
+                    this.phone.addEventListener('blur', () => {
+                        if (!/^[6-9]\d{9}$/.test(this.phone.value)) {
+                            this.error.phoneError.classList.remove('opacity-0')
+                        }
+                        else {
+                            this.error.phoneError.classList.add('opacity-0')
+                        }
+                    })
+                    this.current_address.addEventListener('blur', () => {
+                        if (this.current_address.value.trim() == '') {
+                            this.error.current_addressError.classList.remove('opacity-0')
+                        }
+                        else {
+                            this.error.current_addressError.classList.add('opacity-0')
+                        }
+                    })
+                    this.permanent_address.addEventListener('blur', () => {
+                        if (this.permanent_address.value.trim() == '') {
+                            this.error.permanent_addressError.classList.remove('opacity-0')
+                        }
+                        else {
+                            this.error.permanent_addressError.classList.add('opacity-0')
+                        }
+                    })
+                    this.role.addEventListener('blur', () => {
+                        if (this.role.value.trim() == '') {
+                            this.error.roleError.classList.remove('opacity-0')
+                        }
+                        else {
+                            this.error.roleError.classList.add('opacity-0')
+                        }
+                    })
+                    // submit form here
+
                     this.form.addEventListener("submit", (event) => {
                         event.preventDefault();
+                        if (
+                            /^[a-zA-Z]+$/.test(this.firstName.value) &&
+                            /^[a-zA-Z]+$/.test(this.lastName.value) &&
+                            this.age.value > 18 &&
+                            this.gender.value != '' &&
+                            /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(this.email.value.trim()) &&
+                            this.date_of_birth.value.trim() !== '' &&
+                            this.blood_group.value.trim() !== '' &&
+                            this.image.value.trim() !== '' &&
+                            /^[6-9]\d{9}$/.test(this.phone.value) &&
+                            this.current_address.value.trim() !== '' &&
+                            this.permanent_address.value.trim() !== '' &&
+                            this.role.value.trim() !== ''
+                        ) {
+                            const formlocalStorage = new FormData(this.form);
+                            let formDataStorage = {};
 
-                        const formlocalStorage = new FormData(this.form);
-                        let formDataStorage = {};
-                        formDataStorage.id = Date.now();
-                        formlocalStorage.forEach((value, key) => {
-                            formDataStorage[key] = value;
-                        });
-                        this.notesStorage.push(formDataStorage);
-                        this.updateStorage()
-                        window.location.href = 'Admin.html';
-                        document.getElementById('myForm').reset()
+                            formDataStorage.id = Date.now();
+                            formlocalStorage.forEach((value, key) => {
+
+                                if (value instanceof File) {
+                                    const reader = new FileReader();
+
+                                    reader.readAsDataURL(value);
+                                    reader.onload = (e) => {
+                                        formDataStorage[key] = e.target.result
+                                    }
+                                } else {
+                                    if (value.trim() != '') {
+                                        formDataStorage[key] = value;
+                                    }
+
+                                }
+                            });
+                            console.log(formDataStorage);
+
+                            this.notesStorage.push(formDataStorage);
+                            this.updateStorage()
+                            // window.location.href = 'Admin.html';
+                            // document.getElementById('myForm').reset()
+                        }
+                        else {
+                            alert('Please fill all fields')
+                        }
                     });
                 },
             };
-            // formObj.render();
-            formObj.bind();
+            user.bind();
+            // user.render()
+
         })();
     </script>
 </body>
