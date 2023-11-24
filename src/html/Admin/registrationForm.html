@@ -169,6 +169,18 @@
                     permanent_addressError: document.getElementById("permanent_addressError"),
                     roleError: document.getElementById("roleError"),
                 },
+                getFileBase64: function (file) {
+                    return new Promise((Resolve, Reject) => {
+                        const fileReader = new FileReader()
+                        fileReader.onload = () => {
+                            Resolve(fileReader.result)
+                        }
+                        fileReader.onerror = () => {
+                            Reject("")
+                        }
+                        fileReader.readAsDataURL(file)
+                    })
+                },
                 bind: function () {
 
                     this.firstName.addEventListener('blur', () => {
@@ -179,6 +191,7 @@
                             this.error.firstNameError.classList.add('opacity-0')
                         }
                     })
+
                     this.lastName.addEventListener('blur', () => {
                         if (!/^[a-zA-Z]+$/.test(this.lastName.value)) {
                             this.error.lastNameError.classList.remove('opacity-0')
@@ -270,52 +283,76 @@
                     })
                     // submit form here
 
-                    this.form.addEventListener("submit", (event) => {
+                    this.form.addEventListener("submit", async (event) => {
                         event.preventDefault();
-                        if (
-                            /^[a-zA-Z]+$/.test(this.firstName.value) &&
-                            /^[a-zA-Z]+$/.test(this.lastName.value) &&
-                            this.age.value > 18 &&
-                            this.gender.value != '' &&
-                            /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(this.email.value.trim()) &&
-                            this.date_of_birth.value.trim() !== '' &&
-                            this.blood_group.value.trim() !== '' &&
-                            this.image.value.trim() !== '' &&
-                            /^[6-9]\d{9}$/.test(this.phone.value) &&
-                            this.current_address.value.trim() !== '' &&
-                            this.permanent_address.value.trim() !== '' &&
-                            this.role.value.trim() !== ''
-                        ) {
-                            const formlocalStorage = new FormData(this.form);
-                            let formDataStorage = {};
 
-                            formDataStorage.id = Date.now();
-                            formlocalStorage.forEach((value, key) => {
+                        const formData = new FormData(this.form);
+                        const user = Object.fromEntries(formData)
+                        user.id = Date.now()
 
-                                if (value instanceof File) {
-                                    const reader = new FileReader();
+                        const profileUrl = await getFileBase64(user.image)
+                        console.log(profileUrl);
 
-                                    reader.readAsDataURL(value);
-                                    reader.onload = (e) => {
-                                        formDataStorage[key] = e.target.result
-                                    }
-                                } else {
-                                    if (value.trim() != '') {
-                                        formDataStorage[key] = value;
-                                    }
+                        
 
-                                }
-                            });
-                            console.log(formDataStorage);
+                        // if (
+                        //     /^[a-zA-Z]+$/.test(this.firstName.value) &&
+                        //     /^[a-zA-Z]+$/.test(this.lastName.value) &&
+                        //     this.age.value > 18 &&
+                        //     this.gender.value != '' &&
+                        //     /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(this.email.value.trim()) &&
+                        //     this.date_of_birth.value.trim() !== '' &&
+                        //     this.blood_group.value.trim() !== '' &&
+                        //     this.image.value.trim() !== '' &&
+                        //     /^[6-9]\d{9}$/.test(this.phone.value) &&
+                        //     this.current_address.value.trim() !== '' &&
+                        //     this.permanent_address.value.trim() !== '' &&
+                        //     this.role.value.trim() !== ''
+                        // ) {
 
-                            this.notesStorage.push(formDataStorage);
-                            this.updateStorage()
-                            // window.location.href = 'Admin.html';
-                            // document.getElementById('myForm').reset()
-                        }
-                        else {
-                            alert('Please fill all fields')
-                        }
+
+                        //     let formDataStorage = {};
+
+                        //     formDataStorage.id = Date.now();
+                        //     formlocalStorage.forEach((value, key) => {
+                        //         async function processFormData(value, key) {
+                        //             if (key === 'image' && value instanceof File) {
+                        //                 return new Promise((resolve, reject) => {
+                        //                     const selectedFile = new FileReader();
+
+                        //                     selectedFile.readAsDataURL(value);
+
+                        //                     selectedFile.onload = (e) => {
+                        //                         formDataStorage[key] = selectedFile.result;
+                        //                         resolve();
+                        //                     };
+
+                        //                     selectedFile.onerror = (error) => {
+                        //                         reject(error);
+                        //                     };
+                        //                 });
+                        //             } else {
+                        //                 if (value.trim() !== '') {
+                        //                     formDataStorage[key] = value;
+                        //                     return Promise.resolve();
+                        //                 } else {
+                        //                     return Promise.resolve();
+                        //                 }
+                        //             }
+                        //         }
+
+                        //     });
+
+                        //     this.notesStorage.push(formDataStorage);
+                        //     console.log(this.notesStorage);
+                        //     // localStorage.setItem("notes", JSON.stringify(this.notesStorage));
+                        //     this.updateStorage()
+                        //     window.location.href = 'Admin.html';
+                        //     // document.getElementById('myForm').reset()
+                        // }
+                        // else {
+                        //     alert('Please fill all fields')
+                        // }
                     });
                 },
             };

@@ -44,14 +44,7 @@
         (function () {
 
             const tableData = {
-                getlocalData: function () {
-                    return JSON.parse(localStorage.getItem("notes")) || []
-                },
-                updateLocalData: function (data) {
-                    let storeData = this.getlocalData()
-                    storeData.push(data);
-                    localStorage.setItem("notes", JSON.stringify(storeData))
-                },
+
                 render: function (data) {
                     const tableBody = document.getElementById("tableBody")
                     tableBody.innerHTML = "";
@@ -72,16 +65,17 @@
                         <td class="py-3">${item.permanent_address}</td>
                         <td class="py-3">${item.role}</td>
                         `;
+
+
                         let td = document.createElement('td')
                         td.setAttribute('class', 'p-2 flex justify-around')
                         let editButton = document.createElement('button');
                         editButton.innerHTML = "Edit";
                         editButton.classList.add('bg-blue-500', 'text-white', 'py-2', 'px-4', 'rounded-md');
-                        editButton.addEventListener('click', () => {
+                        this.editButton.addEventListener('click', () => {
                             window.location.href = 'editForm.html'
                             console.log('All Done!');
                         })
-
                         let deleteButton = document.createElement('button');
                         deleteButton.innerHTML = "Delete";
                         deleteButton.classList.add('bg-red-500', 'text-white', 'p-2', 'rounded-md');
@@ -93,7 +87,7 @@
                                 storeData.splice(index, 1);
                                 localStorage.setItem("notes", JSON.stringify(storeData))
                                 location.reload();
-                                }
+                            }
                         })
                         td.append(editButton, deleteButton)
                         row.appendChild(td)
@@ -105,6 +99,14 @@
                     document.getElementById('addUser').addEventListener("click", function () {
                         window.location.href = 'registrationForm.html';
                     })
+                },
+                getlocalData: function () {
+                    return JSON.parse(localStorage.getItem("notes")) || []
+                },
+                updateLocalData: function (data) {
+                    let storeData = this.getlocalData()
+                    storeData.push(data);
+                    localStorage.setItem("notes", JSON.stringify(storeData))
                 },
 
 

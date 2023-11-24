@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fetch</title>
+</head>
+<button type="button" id="btn">click me</button>
+
+<body>
+
+    <script>
+        const apiData = {
+            product: {
+                userId: 2000,
+                title: 'Pants',
+                body: 'NewCloth',
+            },
+
+            getApiData: async function () {
+                let response = await fetch('https://jsonplaceholder.typicode.com/posts')
+                if (response.ok) {
+                    let jsonData = await response.json()
+
+                    let storeDataToLocalStorage = localStorage.setItem('userData', JSON.stringify(jsonData))
+                    let getDataFromLocalstorage = JSON.parse(localStorage.getItem('userData')) || [];
+                    console.log(getDataFromLocalstorage);
+                }
+                else {
+                    console.log('something wrong');
+                }
+            },
+            postApiData: async function () {
+                let response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(apiData.product)
+
+                })
+                if (response.ok) {
+                    let jsonData = await response.json();
+                    // console.log(jsonData);
+                    let getDataFromLocalstorage = JSON.parse(localStorage.getItem('userData')) || [];
+                    getDataFromLocalstorage.push(jsonData)
+                    localStorage.setItem('userData', JSON.stringify(getDataFromLocalstorage))
+
+
+                }
+                else {
+                    console.log('something wrong');
+                }
+
+            },
+
+            bind: function () {
+                document.getElementById('btn').addEventListener('click', () => {
+                    apiData.getApiData();
+                    apiData.postApiData();
+
+                })
+            }
+
+        }
+        apiData.bind();
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../../dist/output.css">
+</head>
+
+<body>
+    <section class="p-4">
+        <form action="#">
+            <input type="text" name="title" placeholder="title" class="border-black border">
+            <input type="text" name="id" placeholder="userId" class="border-black border">
+            <button type="submit" name="submit">Submit</button>
+        </form>
+    </section>
+    <script>
+        (async function () {
+            let form = document.querySelector('form')
+
+            async function storeApiInLocalStorage() {
+                let response = await fetch('https://fakestoreapi.com/products')
+                if (response.ok) {
+                    let apiData = await response.json()
+                    let apiDataInLocalStorage = localStorage.setItem('formDataStore', JSON.stringify(apiData))
+                    let getDataToLocalStorage = JSON.parse(localStorage.getItem(apiDataInLocalStorage)) || [];
+                }
+                else {
+                    console.error('something wrong')
+                }
+            }
+            async function updateDataTolocalStorage() {
+                let formData = new FormData(form)
+                console.log(formData)
+
+                let data = Object.fromEntries(formData)
+                console.log(data)
+
+                // console.log(jsonData);
+                let response = await fetch('https://fakestoreapi.com/products', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify(data)
+                })
+                if (response.ok) {
+                    let jsonData2 = await response.json()
+                    // jsonData2
+                    // .then(
+                    // (data) => {
+                    //     console.log(data)
+                    // }
+                    // )
+                    let getDataToLocalStorage = JSON.parse(localStorage.getItem('formDataStore')) || [];
+                    getDataToLocalStorage.push(jsonData2)
+                    localStorage.setItem('formDataStore', JSON.stringify(getDataToLocalStorage))
+                }
+                else {
+                    console.error("something wrong");
+                }
+
+            }
+            form.addEventListener('submit', (e) => {
+                e.preventDefault()
+                storeApiInLocalStorage()
+                updateDataTolocalStorage()
+            })
+
+        })()
+    </script>
+</body>
+
+</html>
