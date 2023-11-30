@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../../../dist/output.css" />
+</head>
+
+<body>
+    <!-- Search Input -->
+    <div class="relative mt-4">
+        <input id="search" type="text"
+            class="w-full bg-white rounded border border-gray-400 pl-10 pr-4 py-2 focus:border-blue-500 focus:outline-none focus:shadow"
+            placeholder="Search..." />
+
+        <svg class="absolute w-5 h-5 text-gray-400 left-3 top-3 fill-current pointer-events-none"
+            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path
+                d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z" />
+        </svg>
+    </div>
+
+    <!-- Search Results -->
+    <div id="search-results" class="mt-4"></div>
+    <script>
+        // Get DOM elements
+        const searchInput = document.getElementById("search");
+        const searchResults = document.getElementById("search-results");
+
+        // Search Wikipedia API on input change
+        searchInput.addEventListener("input", debounce(searchWikipedia,500));
+
+        function searchWikipedia(event) {
+            // Get search term
+            console.log(event);
+            let searchQuery = event.target.value;
+            console.log(searchQuery);
+
+            // API Request
+            fetch(`https://dummyjson.com/products/search?q=Laptop=${searchQuery}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    // Map results to HTML
+                    let resultsHtml = data.query.search.map((result) => `<div><a href="${result.url}" target="_blank">${result.title} </a></div>`)
+                        .join("");
+                    // Update DOM
+                    searchResults.innerHTML = resultsHtml;
+                    // console.log(searchInput);
+                });
+        }
+
+        // Debounce input
+        function debounce(callback, delay) {
+            let timeout;
+            return (...args) => {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => {
+                    callback(...args);
+                }, delay);
+            };
+        }
+    </script>
+</body>
+
+</html>

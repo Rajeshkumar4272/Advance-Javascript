@@ -92,8 +92,8 @@
                         text.className = 'p-2 text-lg font-medium text-gray-800';
 
                         let category = document.createElement('p');
-                        category.innerText = element.category;
-                        category.className = 'p-2 text-lg font-medium text-gray-800';
+                        text.innerText = element.category;
+                        text.className = 'p-2 text-lg font-medium text-gray-800';
 
                         let price = document.createElement('p');
                         price.innerText = `$ ${element.price}`;
@@ -147,10 +147,10 @@
                     this.form.addEventListener('submit', (e) => {
                         e.preventDefault()
                         this.updateToLocalStorage()
-                        // this.postDataToLocatStorage()
+                        this.storeApiInLocalStorage()
+                        this.postDataToLocatStorage()
                     })
                     // let searchField = document.getElementById('search')
-                    this.storeApiInLocalStorage()
                     this.render()
                     // this.search(searchField)
                 }

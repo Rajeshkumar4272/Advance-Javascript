@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EditForm</title>
+    <link rel="stylesheet" href="../../../dist/output.css">
+</head>
+
+<body>
+    <section class="p-4">
+        <h1>EditForm</h1>
+        <form action="#" id="editForm">
+            <div class="mt-4">
+                <input type="text" name="firstName" class="border-black border w-96">
+                <span class="text-red-600 text-lg font-semibold" data-name="firstName"></span>
+            </div>
+            <div class="mt-4">
+                <input type="file" name="image" id="image" class="border-black border w-96">
+
+                <span class="text-red-600 text-lg font-semibold" data-name="image"></span>
+            </div>
+            <div class="mt-4">
+                <input type="password" name="password" class="border-black border w-96">
+                <span class="text-red-600 text-lg font-semibold" data-name="password"></span>
+            </div>
+            <div class="mt-4">
+                <input type="password" name="confirmPassword" class="border-black border w-96">
+                <span class="text-red-600 text-lg font-semibold" data-name="confirmPassword"></span>
+            </div>
+            <div class="mt-4">
+                <button type="submit" class="border-none bg-blue-600 text-white p-2 rounded ">Update</button>
+            </div>
+        </form>
+    </section>
+    <script>
+        (function () {
+            const userFormEdit = {
+                form: document.getElementById('editForm'),
+
+                urlParam: function () {
+                    const urlParams = new URLSearchParams(window.location.search)
+                    
+                    let editId = urlParams.get("edit")
+                    
+                    if(editId){
+
+                        let data = this.getLocalStorageData();
+
+                        let editData = data.find(item => item.id == editId.trim());
+
+                        console.log(editData)
+                    }
+
+                },
+
+
+                getLocalStorageData: function () {
+                    return JSON.parse(localStorage.getItem('userData')) || [];
+                },
+
+                bind: function () {
+                    this.form.addEventListener('submit', (e) => {
+                        e.preventDefault()
+                        let newForm = new FormData(this.form)
+                        let data = Object.fromEntries(newForm)
+                        console.log(data);
+                        let localStorageData = userFormEdit.getLocalStorageData()
+                        console.log(localStorageData);
+
+                    })
+
+
+                }
+            }
+            userFormEdit.bind()
+            userFormEdit.urlParam()
+
+        })()
+    </script>
+</body>
+
+</html>

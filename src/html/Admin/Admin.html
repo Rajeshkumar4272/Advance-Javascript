@@ -135,6 +135,18 @@
 
                     document.getElementById('search').addEventListener('input', debounce(this))
                 },
+                // search:function(){
+                //     const debounce = () => {
+                //         let debounceTimer = null
+
+                //         return () => {
+                //             clearTimeout(debounceTimer);
+                //             debounceTimer = setTimeout(() => {
+                //                 this.filterData()
+                //             }, 500);
+                //         }
+                //     }
+                // },
                 bind: function () {
                     let data = this.getlocalData();
                     this.render(data)

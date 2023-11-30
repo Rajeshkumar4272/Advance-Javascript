@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>demo-practice</title>
+    <link rel="stylesheet" href="../../../dist/output.css">
+</head>
+
+<body>
+    <section class="px-20  py-10">
+        <h1 class="">RegistrationForm</h1>
+        <div class="border-black border flex p-6 gap-2 ">
+            <div class="flex-1 rounded-md">
+                <img src="https://wallpapers.com/images/high/broken-gaming-controller-5uowjbvgbvm8ce0w.webp" alt="img"
+                    class="h-full w-full object-cover rounded-md">
+            </div>
+            <div class="border-black border flex-1 ">
+                <form action="#" id="registrationForm">
+                    <div class="mt-4 flex  gap-2">
+                        <div class="flex flex-col">
+                            <label for="firstName">FirstName</label>
+                            <input type="text" name="firstName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ">
+                            <div class="h-2">
+                                <span class="text-red-600 text-lg font-semibold" data-name="firstName"></span>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="lastName">lastName</label>
+                            <input type="text" name="lastName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ">
+                            <span class="text-red-600 text-lg font-semibold" data-name="lastName"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="email" name="email" class="border-black border ">
+                    </div>
+                    <div>
+                        <label for="age">Age</label>
+                        <input type="text" name="age">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="gender">Gender:</label>
+                        <select id="gender" name="gender"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="">Select your gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="mt-4">
+                        <label for="file">Image</label>
+                        <input type="file" name="image" id="image" class="border-black border w-96">
+                        <span class="text-red-600 text-lg font-semibold" data-name="image"></span>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="date_of_birth">Date of
+                            Birth:</label>
+                        <input type="date" id="date_of_birth" name="date_of_birth"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            placeholder="YYYY-MM-DD" />
+                        <div id="date_of_birthError" class="text-red-600 opacity-0">please select Date of birth</div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="blood_group">Blood Group:</label>
+                        <select id="blood_group" name="blood_group"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="">Select your blood group</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                        <div id="blood_groupError" class="text-red-600 opacity-0">please select blood group</div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="phone_number">Phone
+                            Number:</label>
+                        <input type="tel" id="phone_number" name="phone_number"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                        <div id="phone_numberError" class="text-red-600 opacity-0">please enter 10 digit number</div>
+                    </div>
+                    <div class="mt-4">
+                        <label for="password">password</label>
+                        <input type="password" name="password" class="border-black border w-96">
+                        <span class="text-red-600 text-lg font-semibold" data-name="password"></span>
+                    </div>
+                    <div class="mt-4">
+                        <label for="confirmPassword">confirmPassword</label>
+                        <input type="password" name="confirmPassword" class="border-black border w-96">
+                        <span class="text-red-600 text-lg font-semibold" data-name="confirmPassword"></span>
+                    </div>
+                    <div class="mt-4">
+                        <button type="submit" class="border-none bg-blue-600 text-white p-2 rounded ">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+
+<script>
+    (function () {
+        const user = {
+            form: document.querySelector('#registrationForm'),
+            userData: localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : [],
+            getFileAsBase64: function (file) {
+                if (file.size == 0) {
+                    return ''
+                }
+                return new Promise((resolve, reject) => {
+                    const fileReader = new FileReader();
+                    fileReader.readAsDataURL(file)
+                    fileReader.onload = () => resolve(fileReader.result)
+                    fileReader.onerror = () => resolve("");
+                })
+
+            },
+            validate: function (data) {
+                // console.log(data);
+                let errors = []
+                if (!/^[a-zA-Z]+$/.test(data.firstName)) {
+                    errors.push({
+                        name: 'firstName',
+                        message: 'Only alphabets are allowed in firstName '
+                    })
+                }
+                if (data.firstName == '') {
+                    errors.push({
+                        name: 'firstName',
+                        message: '*please enter your name '
+                    })
+                }
+
+                if (data.image.length < 1) {
+                    errors.push({
+                        name: "image",
+                        message: "*please select image",
+                    });
+                }
+                if (data.password == '') {
+                    errors.push({
+                        name: "password",
+                        message: "*please enter your password",
+                    });
+                }
+
+                if (data.confirmPassword == '') {
+                    errors.push({
+                        name: "confirmPassword",
+                        message: "*please enter your confirm password",
+                    });
+                }
+
+                if (data.password != data.confirmPassword) {
+                    errors.push({
+                        name: "confirmPassword",
+                        message: "*your password not Matched!",
+                    });
+                }
+
+                if (errors.length > 0) {
+                    return errors
+                }
+                return {
+                    success: true
+                }
+            },
+
+            setError: function (errors) {
+                errors.map((error) => {
+                    let element = document.querySelector(`[data-name="${error.name}"]`)
+                    element.innerText = error.message
+                })
+
+            },
+            resetError: function () {
+                const resetErrorField = ['firstName', 'image', 'password', 'confirmPassword']
+                resetErrorField.forEach(errorlist => {
+                    let element = document.querySelector(`[data-name ="${errorlist}"]`)
+                    element.innerText = ''
+                })
+
+
+            },
+
+            updateToLocalStorage: async function () {
+                await localStorage.setItem('userData', JSON.stringify(this.userData))
+            },
+
+            bind: async function () {
+                this.form.addEventListener('submit', async (e) => {
+                    e.preventDefault()
+                    let formData = new FormData(this.form)
+                    formId = new Date().getTime()
+                    let data = Object.fromEntries(formData)
+                    data["id"] = formId
+
+                    let imageUrl = await this.getFileAsBase64(data.image)
+                    data.image = imageUrl
+                    let errors = this.validate(data)
+                    console.log(errors);
+                    if (!errors.success) {
+                        this.setError(errors)
+                        return
+                    }
+                    this.resetError()
+                    this.userData.push(data)
+                    await this.updateToLocalStorage();
+                    window.location.href = 'demoAdmin.html'
+                    this.form.reset()
+                });
+            }
+
+        }
+        user.bind()
+
+    })()
+
+
+</script>
+
+</html>

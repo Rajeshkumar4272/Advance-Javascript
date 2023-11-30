@@ -295,69 +295,69 @@
 
                         
 
-                        // if (
-                        //     /^[a-zA-Z]+$/.test(this.firstName.value) &&
-                        //     /^[a-zA-Z]+$/.test(this.lastName.value) &&
-                        //     this.age.value > 18 &&
-                        //     this.gender.value != '' &&
-                        //     /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(this.email.value.trim()) &&
-                        //     this.date_of_birth.value.trim() !== '' &&
-                        //     this.blood_group.value.trim() !== '' &&
-                        //     this.image.value.trim() !== '' &&
-                        //     /^[6-9]\d{9}$/.test(this.phone.value) &&
-                        //     this.current_address.value.trim() !== '' &&
-                        //     this.permanent_address.value.trim() !== '' &&
-                        //     this.role.value.trim() !== ''
-                        // ) {
+                        if (
+                            /^[a-zA-Z]+$/.test(this.firstName.value) &&
+                            /^[a-zA-Z]+$/.test(this.lastName.value) &&
+                            this.age.value > 18
+                            // this.gender.value != '' &&
+                            // /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(this.email.value.trim()) &&
+                            // this.date_of_birth.value.trim() !== '' &&
+                            // this.blood_group.value.trim() !== '' &&
+                            // this.image.value.trim() !== '' &&
+                            // /^[6-9]\d{9}$/.test(this.phone.value) &&
+                            // this.current_address.value.trim() !== '' &&
+                            // this.permanent_address.value.trim() !== '' &&
+                            // this.role.value.trim() !== ''
+                        ) {
 
 
-                        //     let formDataStorage = {};
+                            let formDataStorage = {};
 
-                        //     formDataStorage.id = Date.now();
-                        //     formlocalStorage.forEach((value, key) => {
-                        //         async function processFormData(value, key) {
-                        //             if (key === 'image' && value instanceof File) {
-                        //                 return new Promise((resolve, reject) => {
-                        //                     const selectedFile = new FileReader();
+                            formDataStorage.id = Date.now();
+                            formlocalStorage.forEach((value, key) => {
+                                async function processFormData(value, key) {
+                                    if (key === 'image' && value instanceof File) {
+                                        return new Promise((resolve, reject) => {
+                                            const selectedFile = new FileReader();
 
-                        //                     selectedFile.readAsDataURL(value);
+                                            selectedFile.readAsDataURL(value);
 
-                        //                     selectedFile.onload = (e) => {
-                        //                         formDataStorage[key] = selectedFile.result;
-                        //                         resolve();
-                        //                     };
+                                            selectedFile.onload = (e) => {
+                                                formDataStorage[key] = selectedFile.result;
+                                                resolve();
+                                            };
 
-                        //                     selectedFile.onerror = (error) => {
-                        //                         reject(error);
-                        //                     };
-                        //                 });
-                        //             } else {
-                        //                 if (value.trim() !== '') {
-                        //                     formDataStorage[key] = value;
-                        //                     return Promise.resolve();
-                        //                 } else {
-                        //                     return Promise.resolve();
-                        //                 }
-                        //             }
-                        //         }
+                                            selectedFile.onerror = (error) => {
+                                                reject(error);
+                                            };
+                                        });
+                                    } else {
+                                        if (value.trim() !== '') {
+                                            formDataStorage[key] = value;
+                                            return Promise.resolve();
+                                        } else {
+                                            return Promise.resolve();
+                                        }
+                                    }
+                                }
 
-                        //     });
+                            });
 
-                        //     this.notesStorage.push(formDataStorage);
-                        //     console.log(this.notesStorage);
-                        //     // localStorage.setItem("notes", JSON.stringify(this.notesStorage));
-                        //     this.updateStorage()
-                        //     window.location.href = 'Admin.html';
-                        //     // document.getElementById('myForm').reset()
-                        // }
-                        // else {
-                        //     alert('Please fill all fields')
-                        // }
+                            this.notesStorage.push(formDataStorage);
+                            console.log(this.notesStorage);
+                            localStorage.setItem("notes", JSON.stringify(this.notesStorage));
+                            this.updateStorage()
+                            window.location.href = 'Admin.html';
+                            // document.getElementById('myForm').reset()
+                        }
+                        else {
+                            alert('Please fill all fields')
+                        }
                     });
                 },
             };
             user.bind();
-            // user.render()
+            user.render()
 
         })();
     </script>

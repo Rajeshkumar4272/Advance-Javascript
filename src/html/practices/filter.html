@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <select name="filter" id="filter" class="w-52 border px-4 py-2 text-gray-800  font-semibold text-base">
+        <option value="all">All</option>
+        <option value="OPPO">OPPO</option>
+        <option value="Samsung">Samsung</option>
+        <option value="Apple">Apple</option>
+    </select>
+    <script>
+        // Fetch both categories and products
+        async function fetchData() {
+
+            const categoriesResp = await fetch('https://dummyjson.com/products/categories');
+            const categories = await categoriesResp.json();
+
+            const productsResp = await fetch('https://dummyjson.com/products');
+            const products = await productsResp.json();
+
+            return { categories, products };
+        }
+
+        // Create filter 
+        function createFilter({ categories, products }) {
+            let select = document.getElementById('filter')
+            // Rest of filter logic
+
+            select.addEventListener('change', event => {
+
+                const category = event.target.value;
+
+                const filtered = products.filter(product => {
+                    return product.category === category || category === 'all';
+                });
+
+            });
+
+        }
+
+
+        // Usage:
+
+        fetchData().then(({ categories, products }) => {
+
+            createFilter({ categories, products });
+
+        });
+    </script>
+</body>
+
+</html>
