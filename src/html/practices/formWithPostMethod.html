@@ -82,9 +82,9 @@
                         let li = document.createElement('li');
                         li.setAttribute('class', 'mt-10 p-1 flex max-w-md bg-white border-gray-200 rounded-lg overflow-hidden shadow');
 
-                        let image = document.createElement('img');
-                        image.setAttribute('src', element.images[0]);
-                        image.className = 'w-20 h-20 object-cover';
+                        // let image = document.createElement('img');
+                        // image.setAttribute('src', element.images[0]);
+                        // image.className = 'w-20 h-20 object-cover';
 
 
                         let text = document.createElement('p');
@@ -99,7 +99,7 @@
                         price.innerText = `$ ${element.price}`;
                         price.className = 'p-2 text-lg font-medium text-gray-800';
 
-                        li.append(image, text, price, category);
+                        li.append( text, price, category);
                         ul.append(li);
                     });
                 },
@@ -147,7 +147,7 @@
                     this.form.addEventListener('submit', (e) => {
                         e.preventDefault()
                         this.updateToLocalStorage()
-                        // this.postDataToLocatStorage()
+                        this.postDataToLocatStorage()
                     })
                     // let searchField = document.getElementById('search')
                     this.storeApiInLocalStorage()

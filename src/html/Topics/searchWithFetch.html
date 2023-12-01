@@ -10,28 +10,40 @@
 
 <body>
     <header class="border ">
-        <nav class=" p-4  flex  gap-10 ">
+        <nav class=" p-4  flex  gap-10  bg-blue-400">
             <div class="w-10 h-10 ">
-                <img src="icon.svg" alt="logo" class=" w-full h-full object-cover rounded-lg ">
+                <img src="reshot-icon-pacman-game-79ZHKN5J63.svg" alt="logo"
+                    class=" w-full h-full object-cover rounded-lg ">
+            </div>
+            <div>
+                <input type="search" name="search" id="search" class="w-96 px-4 py-2 border rounded-3xl "
+                    placeholder="Search Here...">
             </div>
             <ul class="flex gap-10 ">
                 <li>
-                    <input type="search" name="search" id="search" class="w-96 px-4 py-2 border rounded-3xl "
-                        placeholder="Search Here...">
-                </li>
-                <li>
-                    <select name="filter" id="filter"
-                        class="w-52 border px-4 py-2 text-gray-800  font-semibold text-base">
-                        <option value="all">All</option>
-                        <option value="groceries">groceries</option>
-                        <option value="fragrances">fragrances</option>
-                        <option value="smartphones">smartphones</option>
-                    </select>
+
                 </li>
             </ul>
         </nav>
     </header>
-    <ul id="search-results" class="mt-4 grid grid-cols-3"></ul>
+    <main>
+        <section class="px-8 py-2 bg-gray-50">
+            <div class="flex justify-between">
+
+                <select name="filter" id="filter" class="w-52 border px-4 py-2 text-gray-800  font-semibold text-base">
+                    <option value="all">All</option>
+                    <option value="groceries" class="p-2 text-lg">Groceries</option>
+                    <option value="fragrances" class="p-2 text-lg">Fragrances</option>
+                    <option value="smartphones" class="p-2 text-lg">Smartphones</option>
+                </select>
+                <div>
+                    <button type="button" class="px-6 py-2 bg-blue-400 text-white font-semibold text-lg rounded">Add
+                        Item</button>
+                </div>
+            </div>
+            <ul id="search-results" class=" grid md:grid-cols-3  "></ul>
+        </section>
+    </main>
 
     <script>
         (function () {
@@ -44,22 +56,31 @@
                     ul.innerHTML = ''
                     products.forEach(element => {
                         let li = document.createElement('li');
-                        li.setAttribute('class', 'mt-10 p-1 flex max-w-md bg-white border-gray-200 rounded-lg overflow-hidden shadow');
+                        li.setAttribute('class', ' relative mt-5 p-1  max-w-md bg-white border-gray-200 rounded-lg overflow-hidden shadow');
 
                         let image = document.createElement('img');
-                        image.setAttribute('src', element.images[0]);
-                        image.className = 'w-20 h-20 object-cover';
+                        image.setAttribute('src', element.thumbnail);
+                        image.className = 'w-full h-72 object-contain rounded-lg';
 
+                        let a = document.createElement('a')
+                        a.setAttribute('href', `http://127.0.0.1:5501/src/html/Topics/productPage.html?id=${element.id}`)
+                        a.setAttribute('class', 'absolute inset-0')
+                        a.addEventListener('click', (e) => {
+                            e.preventDefault()
+                            window.location.href = a.getAttribute('href')
+                        })
+                        let newDiv = document.createElement('div')
+                        newDiv.setAttribute('class', 'p-2 w-full  flex flex-col items-center mt-1')
 
                         let text = document.createElement('p');
                         text.innerText = element.title;
-                        text.className = 'p-2 text-lg font-medium text-gray-800';
+                        text.className = 'p-2 text-lg font-medium text-gray-800 ';
 
                         let price = document.createElement('p');
                         price.innerText = `$ ${element.price}`;
-                        price.className = 'p-2 text-lg font-medium text-gray-800';
-
-                        li.append(image, text, price);
+                        price.className = 'p-2 text-lg font-semi-bold text-gray-800';
+                        newDiv.append(text, price)
+                        li.append(a, image, newDiv);
                         ul.append(li);
                     });
                 },
@@ -114,7 +135,7 @@
                         let selectedCategory = filter.value;
 
                         if (selectedCategory == 'all') {
-                            
+
                             this.render(this.productData)
                         }
                         else {

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>product list</title>
+    <link rel="stylesheet" href="../../../dist/output.css">
+</head>
+
+<body>
+
+    <section class=" p-4 border  w-full  h-screen">
+
+        <div class="flex gap-4  px-4  w-full">
+            <div class="w-1/2 ">
+                <div class="flex items-center justify-center  w-full h-96 overflow-hidden">
+                    <img id="image" alt="Product" class="rounded-lg  w-full h-full object-contain">
+                </div>
+                <div class="  mt-10 flex justify-around" id="thumbnailImages"> </div>
+            </div>
+            <div class="w-1/2   space-y-6 px-6 py-4">
+                <p class="  text-4xl font-bold" id="title"></p>
+                <p class=" text-gray-500 text-2xl " id="description"></p>
+                <p class=" text-lg font-semibold" id="brand"></p>
+                <p class=" text-lg font-semibold" id="rating"></p>
+                <p class=" text-lg font-semibold" id="stock"></p>
+                <p class=" text-lg  font-semibold" id="category"></p>
+                <p class=" text-xl font-semibold text-red-600" id="discountPercentage"> </p>
+                <p class=" text-xl font-semibold" id="price"></p>
+                <button class="bg-blue-500 text-white py-2 px-6 rounded-lg flex-1 hover:bg-indigo-600">
+                    Add to Cart
+                </button>
+                <button class="bg-green-500 text-white py-2 px-6 rounded-lg flex-1 hover:bg-green-600">
+                    Buy Now
+                </button>
+            </div>
+        </div>
+    </section>
+    <script>
+        (function () {
+            const productList = {
+                title: document.getElementById('title'),
+                description: document.getElementById('description'),
+                price: document.getElementById('price'),
+                stock: document.getElementById('stock'),
+                brand: document.getElementById('brand'),
+                category: document.getElementById('category'),
+                rating: document.getElementById('rating'),
+                discountPercentage: document.getElementById('discountPercentage'),
+                image: document.getElementById('image'),
+                thumbnailImages: document.getElementById('thumbnailImages'),
+
+
+
+                setProductDetails: async function () {
+                    let urlId = new URLSearchParams(location.search).get('id');
+                    let response = await fetch(`https://dummyjson.com/products/${urlId}`)
+                    if (response.ok) {
+                        let data = await response.json()
+                        console.log(data);
+                        if (data.id == urlId) {
+                            this.image.src = data.thumbnail
+
+                            this.title.innerHTML = data.title
+                            this.description.innerHTML = data.description
+                            this.price.innerHTML = `Price : $${data.price}`
+                            this.rating.innerHTML = `Rating : ${data.rating}`
+                            this.discountPercentage.innerHTML = `DiscountPercentage: ${data.discountPercentage}`
+                            this.category.innerHTML = `Category : ${data.category}`
+                            this.stock.innerHTML = `Stock : ${data.stock}`
+                            this.brand.innerHTML = `Brand : ${data.brand}`
+
+                            data.images.map((item) => {
+                                let img = document.createElement('img')
+                                img.setAttribute('class', ' flex justify-between w-28 h-32 object-cover')
+                                img.setAttribute('src', item)
+                                // console.log(  img.setAttribute('src',item));
+                                thumbnailImages.append(img)
+
+                                img.addEventListener('click', () => {
+                                    this.image.src = img.src
+                                })
+                            })
+
+
+                        }
+                        else {
+                            console.log('product Id not matched');
+                        }
+                    }
+                    else {
+                        console.log("something wrong!");
+                    }
+
+                },
+
+
+
+                bind: function () {
+                    this.setProductDetails()
+                }
+
+            }
+            productList.bind()
+        })()
+    </script>
+</body>
+
+</html>
